@@ -17,26 +17,41 @@ class ViewController: UIViewController{
     
     let sectionContentsArray = ["1","2","3","4","5"]
     
-    var cellContentsArray = [[String()],[String()],[String()],[String()],[String()]]
+    var cellContentsArray = [[String](),[String](),[String](),[String](),[String]()]
+    //[[String()],[String()],[String()],[String()],[String()]]だと[0]番目に""が入ってしまう。
     
-    var selectSegmentNumber = String()
+    var selectSegmentNumber = Int()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+        createSegments(cellContentsArrayCount: sectionContentsArray.count)
+        print(cellContentsArray)
         
         tableView.delegate = self
         tableView.dataSource = self
-
-        
+  
     }
     
     
     @IBAction func add(_ sender: UIButton) {
         
+        if 0...4 ~= selectSegmentNumber{
         
-        tableView.reloadData()
+            for searchCount in 0...selectSegmentNumber{
+                
+                if searchCount == selectSegmentNumber{
+                    
+                    cellContentsArray[selectSegmentNumber].append(cellContentsTextField.text!)
+                    print(cellContentsArray[selectSegmentNumber])
+                }
+                
+            }
+            
+            tableView.reloadData()
         
+        }
     }
     
 
@@ -94,7 +109,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource {
         
         for sectionCount in 0...4{
             
-            if indexPath.section == sectionCount {
+            if indexPath.section == sectionCount{
               
                 cell.textLabel?.text = cellContentsArray[indexPath.section][indexPath.row]
                  
@@ -106,6 +121,29 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     
+}
+
+
+extension ViewController{
     
+    func createSegments(cellContentsArrayCount:Int){
+        
+        segments.removeAllSegments()
+        
+        for segmentCount in 0...cellContentsArrayCount - 1{
+            
+            segments.insertSegment(withTitle: String(segmentCount + 1), at: segmentCount, animated: true)
+            segments.addTarget(self, action: #selector(sendSelectSegment), for: .valueChanged)
+        }
+        
+        segments.backgroundColor = .white
+        
+    }
+    
+    @objc func sendSelectSegment(sender:UISegmentedControl){
+        
+        selectSegmentNumber = sender.selectedSegmentIndex
+        
+    }
     
 }

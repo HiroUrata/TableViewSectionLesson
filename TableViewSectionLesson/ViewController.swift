@@ -60,6 +60,16 @@ class ViewController: UIViewController{
 //tableView内容
 extension ViewController:UITableViewDelegate,UITableViewDataSource {
     
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        
+        tableView.sectionIndexColor = .white
+        tableView.sectionIndexBackgroundColor = .black
+        tableView.sectionIndexTrackingBackgroundColor = .none
+        
+        return sectionContentsArray
+        
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int { //セクション数
         
         return sectionContentsArray.count

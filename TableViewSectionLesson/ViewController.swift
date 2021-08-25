@@ -21,7 +21,8 @@ class ViewController: UIViewController{
     //[[String()],[String()],[String()],[String()],[String()]]だと[0]番目に""が入ってしまう。
     
     var selectSegmentNumber = Int()
-
+    var tapJudgeBool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,9 +146,35 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource {
             
         }
         
+        cell.accessoryView = {() -> UIButton in
+            
+            let heartButton = UIButton(frame: CGRect(x: cell.frame.maxX - (cell.frame.size.width / 4), y: cell.frame.minX + 10, width: cell.frame.size.height - 20, height: cell.frame.size.height - 20))
+            
+            heartButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            heartButton.addTarget(self, action: #selector(tapingButton), for: .touchDown)
+            heartButton.tintColor = .red
+            
+            return heartButton
+            
+        }()
+        
         return cell
     }
     
+    @objc func tapingButton(sender:UIButton){
+        
+        if tapJudgeBool == false{
+            
+            sender.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            tapJudgeBool = true
+            
+        }else if tapJudgeBool == true{
+            
+            sender.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            tapJudgeBool = false
+        }
+        
+    }
     
 }
 

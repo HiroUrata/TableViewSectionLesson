@@ -86,6 +86,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource {
         
         if section == 0{
             
+            return 90
+            
+        }else if section == 1{
+            
             return 60
             
         }else{

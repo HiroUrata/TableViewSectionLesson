@@ -82,6 +82,20 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if section == 0{
+            
+            return 60
+            
+        }else{
+            
+            return 30
+            
+        }
+        
+    }
+    
     //各セクションによって表示するCellの数が違うので、そのための処理
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
